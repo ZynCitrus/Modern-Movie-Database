@@ -8,7 +8,11 @@ function App() {
 
   return (
     <>
-      <div>HEJ HEJ</div>
+      <div>
+        HEJ HEJ
+        <br />
+        heipa hej hej
+      </div>
     </>
   );
 }
