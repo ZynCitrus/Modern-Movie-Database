@@ -8,7 +8,7 @@ function App() {
 
   return (
     <>
-      <div>HEJ HEJ</div>
+      <div>HEJ HEJ test test</div>
     </>
   );
 }
