@@ -1,24 +1,30 @@
-name: Prettier Check
+name: Continuous Integration
 
+# This action works with pull requests and pushes on the main branch
 on:
   pull_request:
+  push:
     branches: [main]
 
 jobs:
   prettier:
+    name: Prettier Check
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Use Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: "20.11.1"
-
-      - name: Install dependencies
-        run: npm install
-
       - name: Run Prettier
-        run: npx prettier --check . --arrow-parens=always --bracket-spacing --end-of-line=lf --html-whitespace-sensitivity=css --insert-pragma=false --single-attribute-per-line=false --bracket-same-line=false --jsx-bracket-same-line=false --jsx-single-quote=false --print-width=80 --prose-wrap=preserve --quote-props=as-needed --require-pragma=false --semi=true --single-quote=false --tab-width=2 --trailing-comma=es5 --use-tabs=false --embedded-language-formatting=auto --vue-indent-script-and-style=false --parser=babel
+        id: prettier-run
+        uses: rutajdash/prettier-cli-action@v1.0.0
+        with:
+          config_path: ./.prettierrc.yml
+
+      # This step only runs if prettier finds errors causing the previous step to fail
+      # This steps lists the files where errors were found
+      - name: Prettier Output
+        if: ${{ failure() }}
+        shell: bash
+        run: |
+          echo "The following files are not formatted:"
+          echo "${{steps.prettier-run.outputs.prettier_output}}"
