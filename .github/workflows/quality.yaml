@@ -1,3 +1,5 @@
+###Stulen från Github Marketplace: https://github.com/marketplace/actions/prettier-check
+
 name: Continuous Integration
 
 # This action works with pull requests and pushes on the main branch
