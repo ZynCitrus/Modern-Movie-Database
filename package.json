@@ -12,7 +12,6 @@
     "prettier:check:ci": "prettier --check \"**/*.{ts,tsx,js,md,mdx,css,yaml}\""
   },
   "dependencies": {
-    "axios": "^1.6.8",
     "firebase": "^10.11.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
