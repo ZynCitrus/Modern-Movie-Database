@@ -1,5 +1,11 @@
 .Navbar {
-  background-color: blue;
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(25, 93, 129, 1) 80%,
+    rgba(14, 98, 138, 1) 100%
+  );
   min-height: 20vh;
   min-width: 100vw;
   display: flex;
