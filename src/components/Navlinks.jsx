@@ -1,16 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../context/context/AuthContext.jsx";
 
 const Navlinks = () => {
-  let [isAuthenticated, setisAuthenticated] = useState(false);
-
-  useEffect(() => {
-    console.log(isAuthenticated);
-  }, [isAuthenticated]);
+  const { user, setUser } = useAuth();
 
   function logout() {
-    setisAuthenticated = false;
-    console.log(isAuthenticated);
+    auth
+      .signOut()
+      .then(() => {
+        setUser(null);
+      })
+      .catch((error) => {
+        console.error("Log out error:", error);
+      });
   }
 
   return (
@@ -21,7 +24,7 @@ const Navlinks = () => {
             Startsida
           </NavLink>
         </li>
-        {isAuthenticated ? (
+        {user ? (
           <>
             <li>
               <NavLink to="/profile">Profil</NavLink>
