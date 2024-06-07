@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { topMovies } from "../context/provider/MovieProvider";
+import { topMovies as fetchTopMovies } from "../context/provider/MovieProvider";
 
 function TopMovies() {
   const [movies, setMovies] = useState([]);
@@ -7,12 +7,11 @@ function TopMovies() {
   const scrollIntervalRef = useRef(null);
 
   useEffect(() => {
-    topMovies()
+    fetchTopMovies()
       .then((data) => {
         if (data && data.results) {
           setMovies(data.results.slice(0, 10));
         }
-        console.log(movies);
       })
       .catch((err) => console.error("Error fetching top movies:", err));
   }, []);
@@ -26,7 +25,7 @@ function TopMovies() {
     const scrollStep = () => {
       if (!scrollContainer) return;
 
-      scrollAmount += 1; // Adjust this value to change the scroll speed
+      scrollAmount += 1; // Justera denna värde för att ändra scrollhastighet
       if (
         scrollAmount >=
         scrollContainer.scrollWidth - scrollContainer.clientWidth
@@ -36,7 +35,7 @@ function TopMovies() {
       scrollContainer.scrollLeft = scrollAmount;
     };
 
-    scrollIntervalRef.current = setInterval(scrollStep, 20); // Adjust the interval to change the scroll speed
+    scrollIntervalRef.current = setInterval(scrollStep, 20); // Justera intervallet för att ändra scrollhastighet
 
     return () => clearInterval(scrollIntervalRef.current);
   }, [movies]);
@@ -54,7 +53,7 @@ function TopMovies() {
     const scrollStep = () => {
       if (!scrollContainer) return;
 
-      scrollAmount += 1; // Adjust this value to change the scroll speed
+      scrollAmount += 1; // Justera denna värde för att ändra scrollhastighet
       if (
         scrollAmount >=
         scrollContainer.scrollWidth - scrollContainer.clientWidth
@@ -64,21 +63,22 @@ function TopMovies() {
       scrollContainer.scrollLeft = scrollAmount;
     };
 
-    scrollIntervalRef.current = setInterval(scrollStep, 20); // Adjust the interval to change the scroll speed
+    scrollIntervalRef.current = setInterval(scrollStep, 20); // Justera intervallet för att ändra scrollhastighet
   };
+
   return (
     <>
       <div className="topMoviesWrapper">
+        <h3>TOP MOVIES</h3>
         <div
           className="topMovies"
           ref={scrollRef}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
-          <h3>TOP MOVIES</h3>
-          <ul>
+          <ul className="topMoviesList">
             {movies.map((movie) => (
-              <li key={movie.id}>
+              <li key={movie.id} className="topMoviesItem">
                 <h4>{movie.title}</h4>
                 <img
                   src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
