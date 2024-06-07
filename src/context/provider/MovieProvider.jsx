@@ -1,4 +1,4 @@
-const topMovies = () => {
+export const topMovies = () => {
   const options = {
     method: "GET",
     headers: {
