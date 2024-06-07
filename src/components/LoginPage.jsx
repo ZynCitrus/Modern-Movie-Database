@@ -12,16 +12,16 @@ function LoginPage() {
       <div className={styles.loginContainer}>
         <form className={styles.loginForm}>
           <input
-            type="text"
+            /*             type="text"
             name="userName"
-            id="userName"
+            id="userName" */
             className={styles.input}
             placeholder="Användarnamn"
           />
           <input
-            type="password"
+            /*             type="password"
             name="password"
-            id="password"
+            id="password" */
             className={styles.input}
             placeholder="Lösenord"
           />
