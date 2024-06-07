@@ -14,11 +14,9 @@ export const topMovies = () => {
   )
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
       return data;
     })
     .catch((err) => {
-      console.error(err);
       throw err;
     });
 };
