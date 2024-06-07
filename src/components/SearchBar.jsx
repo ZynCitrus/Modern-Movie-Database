@@ -11,7 +11,7 @@ function SearchBar() {
           id="SearchBar"
           className={styles.input}
         />
-        <button className={styles.submitBtn}>SÖK!</button>
+        <button className={styles.searchButton}>SÖK!</button>
       </div>
     </>
   );
