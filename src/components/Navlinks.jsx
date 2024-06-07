@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 
 const Navlinks = () => {
-  const isAuthenticated = false;
+  let [isAuthenticated, setisAuthenticated] = useState(false);
+
+  useEffect(() => {
+    console.log(isAuthenticated);
+  }, [isAuthenticated]);
 
   function logout() {
-    console.log("logga ut");
+    setisAuthenticated = false;
+    console.log(isAuthenticated);
   }
 
   return (
