@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { useAuth } from "../context/context/AuthContext.jsx"; // Se till att denna sökväg stämmer överens med din filstruktur
-import { auth } from "../fbconfig/fbconfig";
+import { doc, getDoc } from "firebase/firestore";
+import { useAuth } from "../context/context/AuthContext";
+import { auth, db } from "../fbconfig/fbconfig";
 import styles from "../design/LoginPage.module.scss";
 
 function LoginPage() {
@@ -12,19 +13,38 @@ function LoginPage() {
   const navigate = useNavigate();
   const { setUser } = useAuth();
 
-  function logIn() {
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Inloggning lyckades
-        setUser(userCredential.user);
-        console.log("Inloggning lyckades!", userCredential.user);
-        navigate("/");
-      })
-      .catch((error) => {
-        // Inloggning misslyckades
-        setError(error.message);
-        console.error("Inloggning misslyckades:", error);
-      });
+  async function logIn() {
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+      console.log("Inloggning lyckades, användare:", user);
+
+      const userDocRef = doc(db, "users", user.uid);
+      const userDoc = await getDoc(userDocRef);
+
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+        console.log("Användaruppgifter från Firestore:", userData);
+
+        const userWithUsername = { ...user, username: userData.username };
+        setUser(userWithUsername);
+        localStorage.setItem("user", JSON.stringify(userWithUsername));
+        navigate("/profile");
+      } else {
+        console.error(
+          "Användaruppgifter saknas i databasen för UID:",
+          user.uid
+        );
+        setError("Användaruppgifter saknas i databasen");
+      }
+    } catch (error) {
+      setError(error.message);
+      console.error("Inloggning misslyckades:", error);
+    }
   }
 
   return (

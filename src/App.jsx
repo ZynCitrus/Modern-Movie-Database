@@ -5,6 +5,7 @@ import LoginPage from "./components/LoginPage";
 import Profile from "./components/Profile";
 import Navlinks from "./components/Navlinks";
 import Navbar from "./components/Navbar";
+import Register from "./components/Register";
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </div>
   );

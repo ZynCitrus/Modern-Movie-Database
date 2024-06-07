@@ -1,6 +1,5 @@
 import React from "react";
-import { useAuth } from "../context/context/AuthContext"; // Se till att denna sökväg stämmer överens med din filstruktur
-
+import { useAuth } from "../context/context/AuthContext";
 const Profile = () => {
   const { user } = useAuth();
 
@@ -9,8 +8,7 @@ const Profile = () => {
       <h1>Profil</h1>
       {user ? (
         <div>
-          <p>Välkommen, {user.email}!</p>{" "}
-          {/* Du kan visa andra användarattribut också */}
+          <p>Välkommen, {user.username}!</p>
         </div>
       ) : (
         <p>Ingen användare är inloggad.</p>

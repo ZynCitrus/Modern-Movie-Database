@@ -1,15 +1,19 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../context/context/AuthContext.jsx";
+import { auth } from "../fbconfig/fbconfig.js";
+import { useNavigate } from "react-router-dom";
 
 const Navlinks = () => {
   const { user, setUser } = useAuth();
+  const navigate = useNavigate();
 
   function logout() {
     auth
       .signOut()
       .then(() => {
         setUser(null);
+        navigate("/");
       })
       .catch((error) => {
         console.error("Log out error:", error);
