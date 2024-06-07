@@ -10,7 +10,7 @@ function LoginPage() {
   return (
     <>
       <div className={styles.loginContainer}>
-        <form action="submit" className={styles.loginForm}>
+        <form className={styles.loginForm}>
           <input
             type="text"
             name="userName"
