@@ -1,5 +1,6 @@
 import React from "react";
 import { useAuth } from "../context/context/AuthContext";
+import SearchBar from "./SearchBar";
 
 function MainPage() {
   const { user } = useAuth();
@@ -10,12 +11,16 @@ function MainPage() {
   return (
     <>
       <div>
+        <SearchBar />
         {user ? (
           <div>
             <p>Välkommen, {user.username}!</p>
           </div>
         ) : (
-          <p>Ingen användare är inloggad.</p>
+          <div>
+            <h1>Välkommen till din moderna filmdatabas</h1>
+            <h2>Skapa gärna ett konto eller gör en sökning</h2>
+          </div>
         )}
         <div className="topMovies">TOP MOVIES</div>
       </div>

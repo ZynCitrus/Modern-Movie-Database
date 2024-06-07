@@ -3,6 +3,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { auth, db } from "../fbconfig/fbconfig";
 import styles from "../design/Register.module.scss";
+import { validateAllFields } from "../context/validation/RegisterValidation";
 
 function Register() {
   const [userName, setUserName] = useState("");
@@ -12,28 +13,29 @@ function Register() {
   const [error, setError] = useState(null);
 
   const handleRegister = async (e) => {
+    const errors = validateAllFields(state);
     e.preventDefault();
     if (password !== confirmPassword) {
       setError("Lösenorden matchar inte.");
       return;
     }
-
-    try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      const user = userCredential.user;
-      await setDoc(doc(db, "users", user.uid), {
-        email: email,
-        username: userName,
-      });
-      console.log("Registrering lyckades!", user);
-    } catch (error) {
-      setError(error.message);
-      console.error("Registrering misslyckades:", error);
-    }
+    if (errors == 0)
+      try {
+        const userCredential = await createUserWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
+        const user = userCredential.user;
+        await setDoc(doc(db, "users", user.uid), {
+          email: email,
+          username: userName,
+        });
+        console.log("Registrering lyckades!", user);
+      } catch (error) {
+        setError(error.message);
+        console.error("Registrering misslyckades:", error);
+      }
   };
 
   return (
