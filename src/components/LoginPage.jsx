@@ -25,7 +25,7 @@ function LoginPage() {
             className={styles.input}
             placeholder="Lösenord"
           />
-          <button onClick={logIn} type="submit" className={styles.submitBtn}>
+          <button onClick={logIn} className={styles.submitBtn}>
             Logga in
           </button>
         </form>
