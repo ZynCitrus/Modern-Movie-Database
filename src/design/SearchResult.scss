@@ -1,5 +1,17 @@
 .searchResults {
-  max-width: 1140px;
+  display: flex;
+  flex-direction: column;
+}
+.searchResultsList {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1200px;
+}
+.searchResultsItem {
+  flex: 1 1 25%;
+  max-width: 20%;
+  box-sizing: border-box;
+  margin: 10px;
 }
 
 .searchResultsWrapper {

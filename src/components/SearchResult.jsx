@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { searchMovie } from "../context/provider/MovieProvider";
+import "../design/SearchResult.scss";
 
 function SearchResult() {
   const [movies, setMovies] = useState([]);
@@ -22,7 +23,7 @@ function SearchResult() {
           <ul className="searchResultsList">
             {movies && movies.length > 0 ? (
               movies.map((movie) => (
-                <li key={movie.id} className="searchResultsItem">
+                <div key={movie.id} className="searchResultsItem">
                   <h4>{movie.title}</h4>
                   <img
                     src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
@@ -32,7 +33,7 @@ function SearchResult() {
                     <strong>Release Date:</strong> {movie.release_date}
                   </p>
                   <p>{movie.overview}</p>
-                </li>
+                </div>
               ))
             ) : (
               <li>No movies found</li>
