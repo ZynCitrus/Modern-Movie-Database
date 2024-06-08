@@ -48,46 +48,43 @@ function SearchResult() {
           <h3>SÖKRESULTAT</h3>
           <ul className="searchResultsList">
             {currentMovies && currentMovies.length > 0 ? (
-              currentMovies.map((movie) => (
-                <div key={movie.id} className="searchResultsItem">
-                  <h4>{movie.title}</h4>
-                  <img
-                    src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
-                    alt={movie.title}
-                  />
-                  <p>
-                    <strong>Release Date:</strong> {movie.release_date}
-                  </p>
-                  <p>{movie.overview}</p>
+              <>
+                {currentMovies.map((movie) => (
+                  <div key={movie.id} className="searchResultsItem">
+                    <h4>{movie.title}</h4>
+                    <img
+                      src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
+                      alt={movie.title}
+                    />
+                    <p>{movie.overview}</p>
+                  </div>
+                ))}
+                <div className="pagination">
+                  <button
+                    className="prevResButton"
+                    onClick={handlePrevPage}
+                    disabled={currentPage === 1}
+                  >
+                    Föregående
+                  </button>
+                  <button
+                    className="nextResButton"
+                    onClick={handleNextPage}
+                    disabled={currentPage === totalPages}
+                  >
+                    Nästa
+                  </button>
                 </div>
-              ))
+                <div className="resultsInfo">
+                  <p>
+                    Visar {startResult} - {endResult} av {movies.length} filmer
+                  </p>
+                </div>
+              </>
             ) : (
               <li>No movies found</li>
             )}
           </ul>
-          <div className="pagination">
-            <button
-              className="prevResButton"
-              onClick={handlePrevPage}
-              disabled={currentPage === 1}
-            >
-              Föregående
-            </button>
-            <button
-              className="nextResButton"
-              onClick={handleNextPage}
-              disabled={currentPage === totalPages}
-            >
-              Nästa
-            </button>
-          </div>
-          <div className="resultsInfo">
-            {movies.length > 0 && (
-              <p>
-                Visar {startResult} - {endResult} av {movies.length} filmer
-              </p>
-            )}
-          </div>
         </div>
       </div>
     </>
