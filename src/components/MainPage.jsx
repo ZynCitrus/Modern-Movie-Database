@@ -11,8 +11,6 @@ function MainPage() {
   return (
     <>
       <div>
-        <SearchBar />
-
         {user ? (
           <div>
             <h1>Välkommen till din moderna filmdatabas, {user.username}!</h1>
