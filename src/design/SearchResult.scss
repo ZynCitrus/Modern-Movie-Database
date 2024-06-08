@@ -6,6 +6,7 @@
   display: flex;
   flex-wrap: wrap;
   max-width: 1200px;
+  min-height: 100vh;
 }
 .searchResultsItem {
   flex: 1 1 25%;
@@ -19,4 +20,10 @@
   flex-direction: column;
   flex-wrap: wrap;
   align-items: center;
+}
+
+.prevResButton,
+.nextResButton {
+  background-color: #222;
+  margin: 10px;
 }

@@ -5,16 +5,40 @@ import SearchBar from "./SearchBar";
 
 function SearchResult() {
   const [movies, setMovies] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const resultsPerPage = 8;
 
   const handleSearch = (searchQuery) => {
     searchMovie(searchQuery)
       .then((data) => {
         if (data && data.results) {
-          setMovies(data.results.slice(0, 10));
+          setMovies(data.results);
+          setCurrentPage(1); // Reset to first page on new search
         }
       })
       .catch((err) => console.error("Error fetching movies:", err));
   };
+
+  const indexOfLastMovie = currentPage * resultsPerPage;
+  const indexOfFirstMovie = indexOfLastMovie - resultsPerPage;
+  const currentMovies = movies.slice(indexOfFirstMovie, indexOfLastMovie);
+
+  const totalPages = Math.ceil(movies.length / resultsPerPage);
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const startResult = indexOfFirstMovie + 1;
+  const endResult = Math.min(indexOfLastMovie, movies.length);
 
   return (
     <>
@@ -23,8 +47,8 @@ function SearchResult() {
         <div className="searchResults">
           <h3>SÖKRESULTAT</h3>
           <ul className="searchResultsList">
-            {movies && movies.length > 0 ? (
-              movies.map((movie) => (
+            {currentMovies && currentMovies.length > 0 ? (
+              currentMovies.map((movie) => (
                 <div key={movie.id} className="searchResultsItem">
                   <h4>{movie.title}</h4>
                   <img
@@ -41,6 +65,29 @@ function SearchResult() {
               <li>No movies found</li>
             )}
           </ul>
+          <div className="pagination">
+            <button
+              className="prevResButton"
+              onClick={handlePrevPage}
+              disabled={currentPage === 1}
+            >
+              Föregående
+            </button>
+            <button
+              className="nextResButton"
+              onClick={handleNextPage}
+              disabled={currentPage === totalPages}
+            >
+              Nästa
+            </button>
+          </div>
+          <div className="resultsInfo">
+            {movies.length > 0 && (
+              <p>
+                Visar {startResult} - {endResult} av {movies.length} filmer
+              </p>
+            )}
+          </div>
         </div>
       </div>
     </>
