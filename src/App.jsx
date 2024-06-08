@@ -6,6 +6,7 @@ import Profile from "./components/Profile";
 import Navlinks from "./components/Navlinks";
 import Navbar from "./components/Navbar";
 import Register from "./components/Register";
+import SearchBar from "./components/SearchBar";
 
 const App = () => {
   return (

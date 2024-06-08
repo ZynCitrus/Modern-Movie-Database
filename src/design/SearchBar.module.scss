@@ -1,0 +1,21 @@
+.searchBarContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding-top: 12px;
+}
+
+.searchButton {
+  background-color: #222;
+  height: 72px;
+  margin-left: 6px;
+  border-radius: 8px;
+}
+
+input {
+  max-width: 50vw;
+  font-size: 32px;
+  border-radius: 8px;
+  border-color: blue;
+}

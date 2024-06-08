@@ -1,0 +1,11 @@
+.topMovies {
+  max-width: 1140px;
+  overflow-x: hidden;
+}
+
+.topMoviesWrapper {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+}
