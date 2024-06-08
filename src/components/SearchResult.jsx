@@ -13,7 +13,7 @@ function SearchResult() {
       .then((data) => {
         if (data && data.results) {
           setMovies(data.results);
-          setCurrentPage(1); // Reset to first page on new search
+          setCurrentPage(1);
         }
       })
       .catch((err) => console.error("Error fetching movies:", err));
