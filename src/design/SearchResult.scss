@@ -2,6 +2,12 @@
   display: flex;
   flex-direction: column;
 }
+.searchResultsWithContent {
+  min-height: 100vh;
+}
+.searchResultsEmpty {
+  max-height: 100px;
+}
 .searchResultsList {
   display: flex;
   flex-wrap: wrap;

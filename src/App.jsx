@@ -7,6 +7,7 @@ import Navlinks from "./components/Navlinks";
 import Navbar from "./components/Navbar";
 import Register from "./components/Register";
 import SearchBar from "./components/SearchBar";
+import MovieDetails from "./components/MovieDetails";
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/movie/:id" element={<MovieDetails />} />
       </Routes>
     </div>
   );

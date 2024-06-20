@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { topMovies as fetchTopMovies } from "../context/provider/MovieProvider";
+import { Link } from "react-router-dom";
 
 function TopMovies() {
   const [movies, setMovies] = useState([]);
@@ -80,13 +81,12 @@ function TopMovies() {
             {movies.map((movie) => (
               <li key={movie.id} className="topMoviesItem">
                 <h4>{movie.title}</h4>
-                <img
-                  src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
-                  alt={movie.title}
-                />
-                <p>
-                  <strong>Release Date:</strong> {movie.release_date}
-                </p>
+                <Link to={`/movie/${movie.id}`}>
+                  <img
+                    src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
+                    alt={movie.title}
+                  />
+                </Link>
                 <p>{movie.overview}</p>
               </li>
             ))}

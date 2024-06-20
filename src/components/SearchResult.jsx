@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { searchMovie } from "../context/provider/MovieProvider";
+import { Link } from "react-router-dom";
 import "../design/SearchResult.scss";
 import SearchBar from "./SearchBar";
 
@@ -52,10 +53,12 @@ function SearchResult() {
                 {currentMovies.map((movie) => (
                   <div key={movie.id} className="searchResultsItem">
                     <h4>{movie.title}</h4>
-                    <img
-                      src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
-                      alt={movie.title}
-                    />
+                    <Link to={`/movie/${movie.id}`}>
+                      <img
+                        src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
+                        alt={movie.title}
+                      />
+                    </Link>
                     <p>{movie.overview}</p>
                   </div>
                 ))}
