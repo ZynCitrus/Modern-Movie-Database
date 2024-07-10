@@ -14,11 +14,11 @@ const App = () => {
     <div>
       <Navbar />
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/" element={<HomePage />} exact={true} />
+        <Route path="/login" element={<LoginPage />} exact={true} />
         <Route path="/profile" element={<Profile />} exact={true} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/movie/:id" element={<MovieDetails />} />
+        <Route path="/register" element={<Register />} exact={true} />
+        <Route path="/movie/:id" element={<MovieDetails exact={true} />} />
       </Routes>
     </div>
   );

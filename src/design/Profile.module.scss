@@ -1,0 +1,19 @@
+ul {
+  list-style-type: circle;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  color: #222;
+}
+
+a:hover {
+  font-size: large;
+  font-weight: bolder;
+}
+
+.favoritesList {
+  display: flex;
+  flex-direction: column;
+}

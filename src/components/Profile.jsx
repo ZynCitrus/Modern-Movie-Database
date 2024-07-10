@@ -4,6 +4,7 @@ import { db } from "../fbconfig/fbconfig";
 import { doc, getDoc } from "firebase/firestore";
 import { Link } from "react-router-dom";
 import { getMovieByID } from "../context/provider/MovieProvider";
+import styles from "../design/Profile.module.scss";
 
 const Profile = () => {
   const { user } = useAuth();
@@ -59,20 +60,19 @@ const Profile = () => {
           {loading ? (
             <p>Laddar favoritfilmer...</p>
           ) : (
-            <ul>
-              {movies.map((movie, index) => (
-                <li key={index}>
-                  <Link to={`/movie/${movie.id}`}>
-                    <img
-                      src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
-                      alt={movie.title}
-                    />
-                  </Link>
-                  <p>{movie.title}</p>
-                  <p>Betyg: {movie.vote_average}</p>
-                </li>
-              ))}
-            </ul>
+            <div className={styles.favoritesList}>
+              <ul className={styles.ul}>
+                {movies.map((movie, index) => (
+                  <li key={index}>
+                    <Link to={`/movie/${movie.id}`}>
+                      <p className={styles.a}>{movie.title}</p>
+                    </Link>
+
+                    <p>Betyg: {movie.vote_average}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
           )}
           {error && <p>Ett fel uppstod: {error.message}</p>}
         </div>

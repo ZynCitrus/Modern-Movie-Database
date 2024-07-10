@@ -12,9 +12,6 @@ function TopMovies() {
       .then((data) => {
         if (data && data.results) {
           setMovies(data.results.slice(0, 10));
-          console.log("====================================");
-          console.log(movies);
-          console.log("====================================");
         }
       })
       .catch((err) => console.error("Error fetching top movies:", err));
