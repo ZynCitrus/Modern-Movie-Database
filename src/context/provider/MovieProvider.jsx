@@ -48,6 +48,28 @@ export const getMovieDetails = (movieId) => {
     });
 };
 
+export const getMovieByID = (id) => {
+  const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${api_key}`,
+    },
+  };
+
+  return fetch(
+    "https://api.themoviedb.org/3/movie/${id}?language=sv-SE",
+    options
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      return data;
+    })
+    .catch((err) => {
+      throw err;
+    });
+};
+
 export const searchMovie = (searchQuery) => {
   const options = {
     method: "GET",
