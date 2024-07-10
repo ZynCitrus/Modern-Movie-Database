@@ -73,7 +73,7 @@ function TopMovies() {
   return (
     <>
       <div className="topMoviesWrapper">
-        <h3>TOP MOVIES</h3>
+        <h1>TOP MOVIES</h1>
         <div
           className="topMovies"
           ref={scrollRef}
@@ -83,7 +83,6 @@ function TopMovies() {
           <ul className="topMoviesList">
             {movies.map((movie) => (
               <li key={movie.id} className="topMoviesItem">
-                <h4>{movie.title}</h4>
                 <Link to={`/movie/${movie.id}`}>
                   <img
                     src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}

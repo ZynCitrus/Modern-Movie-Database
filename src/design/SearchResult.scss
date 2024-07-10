@@ -1,12 +1,13 @@
 .searchResults {
   display: flex;
   flex-direction: column;
+  max-height: 100vh;
 }
 .searchResultsWithContent {
   min-height: 100vh;
 }
 .searchResultsEmpty {
-  max-height: 100px;
+  max-height: 1px;
 }
 .searchResultsList {
   display: flex;
@@ -26,6 +27,7 @@
   flex-direction: column;
   flex-wrap: wrap;
   align-items: center;
+  height: 100vh;
 }
 
 .prevResButton,
@@ -35,14 +37,14 @@
 }
 
 .pagination {
-  width: 100%;
+  width: 100vw;
   display: flex;
   flex-direction: row;
   place-items: center;
   justify-content: center;
 }
 .resultsInfo {
-  width: 100%;
+  width: 100vw;
   display: flex;
   flex-direction: row;
   place-items: center;

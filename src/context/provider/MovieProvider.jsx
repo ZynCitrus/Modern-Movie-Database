@@ -36,7 +36,7 @@ export const getMovieDetails = (movieId) => {
   };
 
   return fetch(
-    `https://api.themoviedb.org/3/movie/${movieId}?language=se-SV`,
+    `https://api.themoviedb.org/3/movie/${movieId}?language=sv-SE`,
     options
   )
     .then((response) => response.json())
@@ -58,7 +58,7 @@ export const searchMovie = (searchQuery) => {
   };
 
   return fetch(
-    `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(searchQuery)}`,
+    `https://api.themoviedb.org/3/search/multi?query=${encodeURIComponent(searchQuery)}&language=sv-SE`,
     options
   )
     .then((response) => response.json())

@@ -32,7 +32,7 @@ function MovieDetails() {
         alt={movie.title}
       />
       <p>
-        <strong>Release Date:</strong> {movie.release_date}
+        <strong>Släpptes:</strong> {movie.release_date}
       </p>
       <p>{movie.overview}</p>
       <button className="favorit" onClick={FavoriteToDB}>
