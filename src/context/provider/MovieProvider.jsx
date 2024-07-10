@@ -31,8 +31,7 @@ export const getMovieDetails = (movieId) => {
     method: "GET",
     headers: {
       accept: "application/json",
-      Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4NmFkODQ1Y2ViMTNlYWI0ZDA1YzM0ZWZlNGE3M2ZmOCIsInN1YiI6IjY1ZDEwMjg0ZGI3MmMwMDE0NzM4NzBmMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.iOOvPNpy5sFIWam2YX9zx9MY69x_V1pJ1RU9MIpVdAA",
+      Authorization: `Bearer ${api_key}`,
     },
   };
 
@@ -54,8 +53,7 @@ export const searchMovie = (searchQuery) => {
     method: "GET",
     headers: {
       accept: "application/json",
-      Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4NmFkODQ1Y2ViMTNlYWI0ZDA1YzM0ZWZlNGE3M2ZmOCIsInN1YiI6IjY1ZDEwMjg0ZGI3MmMwMDE0NzM4NzBmMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.iOOvPNpy5sFIWam2YX9zx9MY69x_V1pJ1RU9MIpVdAA",
+      Authorization: `Bearer ${api_key}`,
     },
   };
 

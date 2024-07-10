@@ -33,3 +33,18 @@
   background-color: #222;
   margin: 10px;
 }
+
+.pagination {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  place-items: center;
+  justify-content: center;
+}
+.resultsInfo {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  place-items: center;
+  justify-content: center;
+}

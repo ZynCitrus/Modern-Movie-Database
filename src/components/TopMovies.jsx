@@ -12,11 +12,13 @@ function TopMovies() {
       .then((data) => {
         if (data && data.results) {
           setMovies(data.results.slice(0, 10));
+          console.log("====================================");
+          console.log(movies);
+          console.log("====================================");
         }
       })
       .catch((err) => console.error("Error fetching top movies:", err));
   }, []);
-
   useEffect(() => {
     if (!scrollRef.current || movies.length === 0) return;
 
@@ -26,7 +28,7 @@ function TopMovies() {
     const scrollStep = () => {
       if (!scrollContainer) return;
 
-      scrollAmount += 1; // Justera denna värde för att ändra scrollhastighet
+      scrollAmount += 1;
       if (
         scrollAmount >=
         scrollContainer.scrollWidth - scrollContainer.clientWidth
@@ -36,7 +38,7 @@ function TopMovies() {
       scrollContainer.scrollLeft = scrollAmount;
     };
 
-    scrollIntervalRef.current = setInterval(scrollStep, 20); // Justera intervallet för att ändra scrollhastighet
+    scrollIntervalRef.current = setInterval(scrollStep, 20);
 
     return () => clearInterval(scrollIntervalRef.current);
   }, [movies]);
@@ -48,13 +50,15 @@ function TopMovies() {
   };
 
   const handleMouseLeave = () => {
+    if (!scrollRef.current) return;
+
     const scrollContainer = scrollRef.current;
     let scrollAmount = scrollContainer.scrollLeft;
 
     const scrollStep = () => {
       if (!scrollContainer) return;
 
-      scrollAmount += 1; // Justera denna värde för att ändra scrollhastighet
+      scrollAmount += 1;
       if (
         scrollAmount >=
         scrollContainer.scrollWidth - scrollContainer.clientWidth
@@ -64,9 +68,8 @@ function TopMovies() {
       scrollContainer.scrollLeft = scrollAmount;
     };
 
-    scrollIntervalRef.current = setInterval(scrollStep, 20); // Justera intervallet för att ändra scrollhastighet
+    scrollIntervalRef.current = setInterval(scrollStep, 20);
   };
-
   return (
     <>
       <div className="topMoviesWrapper">

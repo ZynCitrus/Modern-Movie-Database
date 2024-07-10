@@ -21,7 +21,7 @@ const Navlinks = () => {
   }
 
   return (
-    <nav>
+    <nav className="loggedInLinks">
       <ul>
         <li>
           <NavLink exact to="/">
