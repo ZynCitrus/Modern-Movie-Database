@@ -73,7 +73,7 @@ function TopMovies() {
   return (
     <>
       <div className="topMoviesWrapper">
-        <h1>TOP MOVIES</h1>
+        <h1>TOPPFILMER DENNA VECKA:</h1>
         <div
           className="topMovies"
           ref={scrollRef}

@@ -58,10 +58,15 @@ export const getMovieByID = (id) => {
   };
 
   return fetch(
-    "https://api.themoviedb.org/3/movie/${id}?language=sv-SE",
+    `https://api.themoviedb.org/3/movie/${id}?language=sv-SE`,
     options
   )
-    .then((response) => response.json())
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
     .then((data) => {
       return data;
     })

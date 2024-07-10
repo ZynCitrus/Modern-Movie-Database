@@ -3,10 +3,14 @@ import { useAuth } from "../context/context/AuthContext";
 import { db } from "../fbconfig/fbconfig";
 import { doc, getDoc } from "firebase/firestore";
 import { Link } from "react-router-dom";
+import { getMovieByID } from "../context/provider/MovieProvider";
 
 const Profile = () => {
   const { user } = useAuth();
   const [favorites, setFavorites] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [movies, setMovies] = useState([]);
 
   useEffect(() => {
     const fetchFavorites = async () => {
@@ -20,7 +24,13 @@ const Profile = () => {
             const favoritesDoc = await getDoc(favoritesDocRef);
 
             if (favoritesDoc.exists()) {
-              setFavorites(favoritesDoc.data().movies || []);
+              const favoriteMovies = favoritesDoc.data().movies || [];
+              setFavorites(favoriteMovies);
+              const movieDetailsPromises = favoriteMovies.map((movieId) =>
+                getMovieByID(movieId)
+              );
+              const moviesData = await Promise.all(movieDetailsPromises);
+              setMovies(moviesData);
             } else {
               console.log("Inga favoriter hittades!");
             }
@@ -29,6 +39,9 @@ const Profile = () => {
           }
         } catch (error) {
           console.error("Fel vid hämtning av dokument:", error);
+          setError(error);
+        } finally {
+          setLoading(false);
         }
       }
     };
@@ -42,16 +55,26 @@ const Profile = () => {
       {user ? (
         <div>
           <p>Välkommen, {user.username}!</p>
-          <h2>Dina favoritmarkerade filmer:</h2>
-          <ul>
-            {favorites.length > 0 ? (
-              favorites.map((favorite, index) => (
-                <li key={index}>{favorite}</li>
-              ))
-            ) : (
-              <p>Inga favoritfilmer hittades.</p>
-            )}
-          </ul>
+          <h2>Dina Favoritmarkerade filmer:</h2>
+          {loading ? (
+            <p>Laddar favoritfilmer...</p>
+          ) : (
+            <ul>
+              {movies.map((movie, index) => (
+                <li key={index}>
+                  <Link to={`/movie/${movie.id}`}>
+                    <img
+                      src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
+                      alt={movie.title}
+                    />
+                  </Link>
+                  <p>{movie.title}</p>
+                  <p>Betyg: {movie.vote_average}</p>
+                </li>
+              ))}
+            </ul>
+          )}
+          {error && <p>Ett fel uppstod: {error.message}</p>}
         </div>
       ) : (
         <p>Ingen användare är inloggad.</p>
