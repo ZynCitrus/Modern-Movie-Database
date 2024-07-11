@@ -21,20 +21,13 @@ const Profile = () => {
           const userDoc = await getDoc(userDocRef);
 
           if (userDoc.exists()) {
-            const favoritesDocRef = userDoc.data().favoritesID;
-            const favoritesDoc = await getDoc(favoritesDocRef);
-
-            if (favoritesDoc.exists()) {
-              const favoriteMovies = favoritesDoc.data().movies || [];
-              setFavorites(favoriteMovies);
-              const movieDetailsPromises = favoriteMovies.map((movieId) =>
-                getMovieByID(movieId)
-              );
-              const moviesData = await Promise.all(movieDetailsPromises);
-              setMovies(moviesData);
-            } else {
-              console.log("Inga favoriter hittades!");
-            }
+            const favoriteMovieIds = userDoc.data().favoritesID || [];
+            setFavorites(favoriteMovieIds);
+            const movieDetailsPromises = favoriteMovieIds.map((movieId) =>
+              getMovieByID(movieId)
+            );
+            const moviesData = await Promise.all(movieDetailsPromises);
+            setMovies(moviesData);
           } else {
             console.log("Ingen användare hittades!");
           }
@@ -63,13 +56,23 @@ const Profile = () => {
             <div className={styles.favoritesList}>
               <ul className={styles.ul}>
                 {movies.map((movie, index) => (
-                  <li key={index}>
-                    <Link to={`/movie/${movie.id}`}>
-                      <p className={styles.a}>{movie.title}</p>
-                    </Link>
-
-                    <p>Betyg: {movie.vote_average}</p>
-                  </li>
+                  <div className={styles.favoriteMovie}>
+                    <li key={index}>
+                      <Link to={`/movie/${movie.id}`}>
+                        <img
+                          className={styles.img}
+                          src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
+                          alt={movie.title}
+                        />{" "}
+                      </Link>
+                      <div className={styles.favoritesTitle}>
+                        <Link to={`/movie/${movie.id}`}>
+                          <p className={styles.a}>{movie.title}</p>
+                        </Link>
+                      </div>
+                      <p>Betyg: {movie.vote_average}</p>
+                    </li>
+                  </div>
                 ))}
               </ul>
             </div>
