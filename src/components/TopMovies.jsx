@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { topMovies as fetchTopMovies } from "../context/provider/MovieProvider";
+import { Link } from "react-router-dom";
 
 function TopMovies() {
   const [movies, setMovies] = useState([]);
@@ -15,7 +16,6 @@ function TopMovies() {
       })
       .catch((err) => console.error("Error fetching top movies:", err));
   }, []);
-
   useEffect(() => {
     if (!scrollRef.current || movies.length === 0) return;
 
@@ -25,7 +25,7 @@ function TopMovies() {
     const scrollStep = () => {
       if (!scrollContainer) return;
 
-      scrollAmount += 1; // Justera denna värde för att ändra scrollhastighet
+      scrollAmount += 1;
       if (
         scrollAmount >=
         scrollContainer.scrollWidth - scrollContainer.clientWidth
@@ -35,7 +35,7 @@ function TopMovies() {
       scrollContainer.scrollLeft = scrollAmount;
     };
 
-    scrollIntervalRef.current = setInterval(scrollStep, 20); // Justera intervallet för att ändra scrollhastighet
+    scrollIntervalRef.current = setInterval(scrollStep, 20);
 
     return () => clearInterval(scrollIntervalRef.current);
   }, [movies]);
@@ -47,13 +47,15 @@ function TopMovies() {
   };
 
   const handleMouseLeave = () => {
+    if (!scrollRef.current) return;
+
     const scrollContainer = scrollRef.current;
     let scrollAmount = scrollContainer.scrollLeft;
 
     const scrollStep = () => {
       if (!scrollContainer) return;
 
-      scrollAmount += 1; // Justera denna värde för att ändra scrollhastighet
+      scrollAmount += 1;
       if (
         scrollAmount >=
         scrollContainer.scrollWidth - scrollContainer.clientWidth
@@ -63,13 +65,12 @@ function TopMovies() {
       scrollContainer.scrollLeft = scrollAmount;
     };
 
-    scrollIntervalRef.current = setInterval(scrollStep, 20); // Justera intervallet för att ändra scrollhastighet
+    scrollIntervalRef.current = setInterval(scrollStep, 20);
   };
-
   return (
     <>
       <div className="topMoviesWrapper">
-        <h3>TOP MOVIES</h3>
+        <h1>TOPPFILMER DENNA VECKA:</h1>
         <div
           className="topMovies"
           ref={scrollRef}
@@ -79,14 +80,12 @@ function TopMovies() {
           <ul className="topMoviesList">
             {movies.map((movie) => (
               <li key={movie.id} className="topMoviesItem">
-                <h4>{movie.title}</h4>
-                <img
-                  src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
-                  alt={movie.title}
-                />
-                <p>
-                  <strong>Release Date:</strong> {movie.release_date}
-                </p>
+                <Link to={`/movie/${movie.id}`}>
+                  <img
+                    src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
+                    alt={movie.title}
+                  />
+                </Link>
                 <p>{movie.overview}</p>
               </li>
             ))}

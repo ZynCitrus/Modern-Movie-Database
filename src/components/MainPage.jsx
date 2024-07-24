@@ -4,6 +4,7 @@ import SearchBar from "./SearchBar";
 import SearchResult from "./SearchResult";
 import "../design/MainPage.scss";
 import TopMovies from "./TopMovies";
+import Footer from "./Footer";
 
 function MainPage() {
   const { user } = useAuth();
@@ -23,6 +24,7 @@ function MainPage() {
         )}
         <SearchResult />
         <TopMovies />
+        <Footer />
       </div>
     </>
   );

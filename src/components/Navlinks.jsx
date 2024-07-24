@@ -21,10 +21,10 @@ const Navlinks = () => {
   }
 
   return (
-    <nav>
+    <nav className="loggedInLinks">
       <ul>
         <li>
-          <NavLink exact to="/">
+          <NavLink exact={true.toString()} to="/">
             Startsida
           </NavLink>
         </li>

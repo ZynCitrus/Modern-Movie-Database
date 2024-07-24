@@ -1,6 +1,13 @@
 .searchResults {
   display: flex;
   flex-direction: column;
+  max-height: 100vh;
+}
+.searchResultsWithContent {
+  min-height: 100vh;
+}
+.searchResultsEmpty {
+  max-height: 1px;
 }
 .searchResultsList {
   display: flex;
@@ -20,10 +27,26 @@
   flex-direction: column;
   flex-wrap: wrap;
   align-items: center;
+  height: 100vh;
 }
 
 .prevResButton,
 .nextResButton {
   background-color: #222;
   margin: 10px;
+}
+
+.pagination {
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  place-items: center;
+  justify-content: center;
+}
+.resultsInfo {
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  place-items: center;
+  justify-content: center;
 }
