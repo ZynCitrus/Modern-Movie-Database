@@ -5,6 +5,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { Link } from "react-router-dom";
 import { getMovieByID } from "../context/provider/MovieProvider";
 import styles from "../design/Profile.module.scss";
+import { fetchRecommended } from "../context/provider/FavoritesProvider";
 
 const Profile = () => {
   const { user } = useAuth();
@@ -42,6 +43,8 @@ const Profile = () => {
 
     fetchFavorites();
   }, [user]);
+
+  fetchRecommended(671);
 
   return (
     <div>
