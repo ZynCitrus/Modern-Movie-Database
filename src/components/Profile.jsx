@@ -13,7 +13,7 @@ const Profile = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [movies, setMovies] = useState([]);
-  const [recommendedMovies, setrecommendedMovies] = useState([]);
+  const [recommendedMovies, setRecommendedMovies] = useState([]);
   useEffect(() => {
     const fetchFavorites = async () => {
       if (user && user.uid) {
@@ -46,10 +46,28 @@ const Profile = () => {
 
   useEffect(() => {
     const getRecommendedMovies = async () => {
+      setLoading(true);
+
       try {
         if (favorites.length > 0) {
-          const data = await fetchRecommended(favorites);
-          setRecommendedMovies(data.results || []);
+          const allRecommended = [];
+
+          for (const id of favorites) {
+            const data = await fetchRecommended(id);
+            if (data.results) {
+              allRecommended.push(...data.results);
+            }
+          }
+
+          const uniqueRecommendedMovies = Array.from(
+            new Set(allRecommended.map((movie) => movie.id))
+          ).map((id) => {
+            return allRecommended.find((movie) => movie.id === id);
+          });
+
+          setRecommendedMovies(uniqueRecommendedMovies);
+        } else {
+          setRecommendedMovies([]);
         }
       } catch (err) {
         setError(err.message);
@@ -60,7 +78,6 @@ const Profile = () => {
 
     getRecommendedMovies();
   }, [favorites]);
-
   return (
     <div>
       <h1>Profil</h1>
@@ -100,30 +117,38 @@ const Profile = () => {
       ) : (
         <p>Ingen användare är inloggad.</p>
       )}
-      <div className="recommendedFavorites">
-        {loading ? (
-          <p>Laddar rekommenderade filmer...</p>
-        ) : (
-          <ul>
-            {recommendedMovies.map((movie) => (
-              <li key={movie.id}>
-                <Link to={`/movie/${movie.id}`}>
-                  <img
-                    src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
-                    alt={movie.title}
-                  />
-                  <p>{movie.title}</p>
-                </Link>
-              </li>
+      <h2>Rekommenderade filmer baserat på dina favoriter:</h2>
+
+      {loading ? (
+        <p>Laddar rekommenderade filmer...</p>
+      ) : (
+        <div className={styles.favoritesList}>
+          <ul className={styles.ul}>
+            {recommendedMovies.map((movie, index) => (
+              <div className={styles.favoriteMovie}>
+                <li key={index}>
+                  <Link to={`/movie/${movie.id}`}>
+                    <img
+                      className={styles.img}
+                      src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
+                      alt={movie.title}
+                    />{" "}
+                  </Link>
+                  <div className={styles.favoritesTitle}>
+                    <Link to={`/movie/${movie.id}`}>
+                      <p className={styles.a}>{movie.title}</p>
+                    </Link>
+                  </div>
+                  <p>Betyg: {movie.vote_average}</p>
+                </li>
+              </div>
             ))}
           </ul>
-        )}
-        {error && (
-          <p>
-            Ett fel uppstod vid hämtning av rekommendationer: {error.message}
-          </p>
-        )}
-      </div>
+        </div>
+      )}
+      {error && (
+        <p>Ett fel uppstod vid hämtning av rekommendationer: {error.message}</p>
+      )}
     </div>
   );
 };

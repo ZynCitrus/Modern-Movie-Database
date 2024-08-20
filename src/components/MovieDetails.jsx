@@ -10,8 +10,7 @@ import {
   getDoc,
 } from "firebase/firestore";
 import { db } from "../fbconfig/fbconfig";
-import "../design/MovieDetails.scss";
-
+import styles from "../design/MovieDetails.module.scss";
 function MovieDetails() {
   const { id } = useParams();
   const { user } = useAuth();
@@ -22,7 +21,6 @@ function MovieDetails() {
     getMovieDetails(id)
       .then((data) => {
         setMovie(data);
-        console.log(data);
         checkIfFavorite(data.id);
       })
       .catch((err) => console.error("Error fetching movie details:", err));
@@ -64,9 +62,10 @@ function MovieDetails() {
   }
 
   return (
-    <div>
+    <div className={styles.MovieDetails}>
       <h1>{movie.title}</h1>
       <img
+        className={styles.img}
         src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
         alt={movie.title}
       />
@@ -74,7 +73,7 @@ function MovieDetails() {
         <strong>Släpptes:</strong> {movie.release_date}
       </p>
       <p>{movie.overview}</p>
-      <button className="favorit" onClick={handleFavorite}>
+      <button className={styles.favoriteButton} onClick={handleFavorite}>
         {isFavorite ? "TA BORT FAVORIT" : "FAVORITMARKERA"}
       </button>
     </div>
