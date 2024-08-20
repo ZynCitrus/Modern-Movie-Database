@@ -13,7 +13,7 @@ const Profile = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [movies, setMovies] = useState([]);
-
+  const [recommendedMovies, setrecommendedMovies] = useState([]);
   useEffect(() => {
     const fetchFavorites = async () => {
       if (user && user.uid) {
@@ -44,7 +44,22 @@ const Profile = () => {
     fetchFavorites();
   }, [user]);
 
-  fetchRecommended(671);
+  useEffect(() => {
+    const getRecommendedMovies = async () => {
+      try {
+        if (favorites.length > 0) {
+          const data = await fetchRecommended(favorites);
+          setRecommendedMovies(data.results || []);
+        }
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getRecommendedMovies();
+  }, [favorites]);
 
   return (
     <div>
@@ -85,6 +100,30 @@ const Profile = () => {
       ) : (
         <p>Ingen användare är inloggad.</p>
       )}
+      <div className="recommendedFavorites">
+        {loading ? (
+          <p>Laddar rekommenderade filmer...</p>
+        ) : (
+          <ul>
+            {recommendedMovies.map((movie) => (
+              <li key={movie.id}>
+                <Link to={`/movie/${movie.id}`}>
+                  <img
+                    src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
+                    alt={movie.title}
+                  />
+                  <p>{movie.title}</p>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
+        {error && (
+          <p>
+            Ett fel uppstod vid hämtning av rekommendationer: {error.message}
+          </p>
+        )}
+      </div>
     </div>
   );
 };
