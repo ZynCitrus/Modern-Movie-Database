@@ -22,6 +22,7 @@ function MovieDetails() {
       .then((data) => {
         setMovie(data);
         checkIfFavorite(data.id);
+        console.log(data);
       })
       .catch((err) => console.error("Error fetching movie details:", err));
   }, [id]);
@@ -62,20 +63,25 @@ function MovieDetails() {
   }
 
   return (
-    <div className={styles.MovieDetails}>
-      <h1>{movie.title}</h1>
-      <img
-        className={styles.img}
-        src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
-        alt={movie.title}
-      />
-      <p>
-        <strong>Släpptes:</strong> {movie.release_date}
-      </p>
-      <p>{movie.overview}</p>
-      <button className={styles.favoriteButton} onClick={handleFavorite}>
-        {isFavorite ? "TA BORT FAVORIT" : "FAVORITMARKERA"}
-      </button>
+    <div className={styles.MovieDetailsContainer}>
+      <div className={styles.MovieDetails}>
+        <h1>{movie.title}</h1>
+        <img
+          className={styles.img}
+          src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
+          alt={movie.title}
+        />
+        <p>
+          <strong>Släpptes:</strong> {movie.release_date}
+        </p>
+        <p>Betyg: {movie.vote_average}</p>
+        <p>Genre: {movie.genres.map((genre) => genre.name).join(", ")}</p>
+
+        <p>{movie.overview}</p>
+        <button className={styles.favoriteButton} onClick={handleFavorite}>
+          {isFavorite ? "TA BORT FAVORIT" : "FAVORITMARKERA"}
+        </button>
+      </div>
     </div>
   );
 }

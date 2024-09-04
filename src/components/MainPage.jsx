@@ -3,15 +3,15 @@ import { useAuth } from "../context/context/AuthContext";
 import SearchBar from "./SearchBar";
 import SearchResult from "./SearchResult";
 import "../design/MainPage.scss";
+
 import TopMovies from "./TopMovies";
-import Footer from "./Footer";
 
 function MainPage() {
   const { user } = useAuth();
 
   return (
     <>
-      <div>
+      <div className="mainContainer">
         {user ? (
           <div>
             <h1>Välkommen till din moderna filmdatabas, {user.username}!</h1>
@@ -23,9 +23,8 @@ function MainPage() {
           </div>
         )}
         <SearchResult />
-        <TopMovies />
-        <Footer />
       </div>
+      <TopMovies />
     </>
   );
 }

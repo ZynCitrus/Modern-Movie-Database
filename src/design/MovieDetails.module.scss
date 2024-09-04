@@ -1,13 +1,19 @@
 .img {
   width: 33%;
 }
+.MovieDetailsContainer {
+  display: flex;
+  justify-content: center;
+}
 
 .MovieDetails {
-  width: 100%;
+  background-color: rgb(237, 240, 252);
+  width: 50%;
   margin: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-left: 20px;
 }
 
 .favoriteButton {

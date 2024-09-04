@@ -1,11 +1,6 @@
-.topMovies {
-  max-width: 1140px;
-  overflow-x: hidden;
-}
-
-.topMoviesWrapper {
+.mainContainer {
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
-  align-items: center;
+  min-height: 100%;
+  overflow: visible;
 }
